@@ -181,6 +181,10 @@ class PlayState extends BaseTileState {
 
 	function processStateTransition(elapsed:Float) {
 		var pause = FlxG.keys.anyJustPressed([ESCAPE]);
+		var reset = FlxG.keys.anyJustPressed([R]);
+		if (reset) {
+			FlxG.resetState();
+		}
 		if (pause) {
 			if (!pauseSound.playing) {
 				// Automatically pauses the game using the function openPauseState

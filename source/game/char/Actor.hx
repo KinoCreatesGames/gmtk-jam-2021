@@ -93,7 +93,7 @@ class Actor extends FlxSprite {
 			}
 			this.wordModList.remove(word);
 			word.visible = true;
-			word.setPosition(this.x, this.y - 32);
+			word.setPosition(this.x, this.y - 48);
 		}
 	}
 }

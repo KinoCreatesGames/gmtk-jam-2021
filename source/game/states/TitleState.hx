@@ -262,7 +262,7 @@ Left/Right: A/Left, S/Right', textSize);
 	}
 
 	public function createVersion() {
-		var textWidth = 200;
+		var textWidth = 400;
 		var textSize = 12;
 		var versionText = new FlxText(20, FlxG.height - 20, textWidth,
 			Globals.TEXT_VERSION, textSize);

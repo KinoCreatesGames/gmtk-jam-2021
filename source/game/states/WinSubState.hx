@@ -82,7 +82,9 @@ class WinSubState extends FlxSubState {
 
 		toTitleButton.hoverColor = KColor.PRETTY_PINK;
 		toTitleButton.clickColor = KColor.RICH_BLACK_FORGRA;
-		// add(continueButton);
+		if (nextLevel != null) {
+			add(continueButton);
+		}
 		add(toTitleButton);
 	}
 

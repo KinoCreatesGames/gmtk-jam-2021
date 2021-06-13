@@ -83,6 +83,7 @@ class GameOverSubState extends FlxSubState {
 	override public function update(elapsed:Float) {
 		super.update(elapsed);
 		updateGameOver(elapsed);
+		updateMouse();
 	}
 
 	public function updateGameOver(elapsed:Float) {
