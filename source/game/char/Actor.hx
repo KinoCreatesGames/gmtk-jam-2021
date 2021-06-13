@@ -9,6 +9,7 @@ import game.objects.Small;
 import game.objects.Walk;
 import game.objects.Word;
 import game.objects.Jump;
+import game.objects.Reverse;
 
 // Note we'll be using tiles so don't go over the tile limit
 class Actor extends FlxSprite {
@@ -17,9 +18,10 @@ class Actor extends FlxSprite {
 	public var atk:Int;
 	public var def:Int;
 	public var spd:Int;
-	public var notSolid:Bool;
+	public var notSolid:Bool = false;
 	public var wordModList:Array<Word>;
-	public var canWalk:Bool;
+	public var canWalk:Bool = false;
+	public var isReverse:Bool = false;
 
 	public function new(x:Float, y:Float, ?actorData:ActorData) {
 		super(x, y);
@@ -67,6 +69,9 @@ class Actor extends FlxSprite {
 					canWalk = true;
 				case NonSolid:
 					this.notSolid = true;
+				case Reverse:
+					this.isReverse = true;
+					this.velocity.x *= -1;
 				case Jump:
 					if (this.isTouching(FlxObject.FLOOR)) {
 						this.velocity.y -= 128;
@@ -96,7 +101,9 @@ class Actor extends FlxSprite {
 					this.spd = cast this.spd / 1.5;
 				case NonSolid:
 					this.notSolid = false;
-
+				case Reverse:
+					this.isReverse = false;
+					this.velocity.x *= -1;
 				case _:
 					// Do nothing
 			}
