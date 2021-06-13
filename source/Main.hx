@@ -1,5 +1,6 @@
 package;
 
+import game.states.LevelThreeState;
 import game.states.LevelTwoState;
 import game.states.LevelOneState;
 import game.states.TitleState;
@@ -10,6 +11,6 @@ import game.states.PlayState;
 class Main extends Sprite {
 	public function new() {
 		super();
-		addChild(new FlxGame(0, 0, LevelTwoState));
+		addChild(new FlxGame(0, 0, LevelThreeState));
 	}
 }

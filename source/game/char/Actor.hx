@@ -1,5 +1,6 @@
 package game.char;
 
+import flixel.FlxObject;
 import game.objects.NonSolid;
 import game.objects.Fast;
 import game.objects.Slow;
@@ -7,6 +8,7 @@ import game.objects.Large;
 import game.objects.Small;
 import game.objects.Walk;
 import game.objects.Word;
+import game.objects.Jump;
 
 // Note we'll be using tiles so don't go over the tile limit
 class Actor extends FlxSprite {
@@ -49,6 +51,9 @@ class Actor extends FlxSprite {
 
 	public function applyWord(word:Word) {
 		if (word != null) {
+			this.wordModList.push(word);
+			word.allowCollisions = FlxObject.NONE;
+			word.visible = false;
 			switch (Type.getClass(word)) {
 				case Small:
 
@@ -62,11 +67,14 @@ class Actor extends FlxSprite {
 					canWalk = true;
 				case NonSolid:
 					this.notSolid = true;
+				case Jump:
+					if (this.isTouching(FlxObject.FLOOR)) {
+						this.velocity.y -= 128;
+					}
+					this.removeWord();
 				case _:
 					// Do nothing
 			}
-			this.wordModList.push(word);
-			word.visible = false;
 		}
 	}
 
@@ -88,12 +96,14 @@ class Actor extends FlxSprite {
 					this.spd = cast this.spd / 1.5;
 				case NonSolid:
 					this.notSolid = false;
+
 				case _:
 					// Do nothing
 			}
-			this.wordModList.remove(word);
+
+			word.setPosition(this.x, this.y - 32);
+			word.allowCollisions = FlxObject.ANY;
 			word.visible = true;
-			word.setPosition(this.x, this.y - 48);
 		}
 	}
 }

@@ -42,10 +42,14 @@ class PlayState extends BaseTileState {
 		super.createGroups();
 		wordGrp = new FlxTypedGroup<Word>();
 		deathGrp = new FlxTypedGroup<FlxSprite>();
-		var word = new Walk(30, 30);
 
-		wordGrp.add(word);
+		addWords();
 	}
+
+	/**
+	 * Used to add words at the top of the screen.
+	 */
+	public function addWords() {}
 
 	override public function addGroups() {
 		super.addGroups();
@@ -140,8 +144,9 @@ class PlayState extends BaseTileState {
 
 	function processAttachDetachWords(elapsed:Float) {
 		FlxG.overlap(mouseCursor, entityGrp, attachWord);
-		FlxG.overlap(mouseCursor, entityGrp, detachWord);
 		FlxG.overlap(mouseCursor, wordGrp, grabWord);
+		FlxG.overlap(mouseCursor, entityGrp, detachWord);
+
 		// if (FlxG.mouse.overlaps(entityGrp) && FlxG.mouse.justReleased
 		// 	&& carriedWord != null) {
 		// 	// Drops word onto the target
@@ -158,7 +163,7 @@ class PlayState extends BaseTileState {
 			carriedWord = null;
 		}
 		// Grab word
-		if (FlxG.mouse.justPressed) {
+		if (FlxG.mouse.justPressed && word.visible) {
 			grabSound.play();
 			carriedWord = word;
 		}
