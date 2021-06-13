@@ -8,7 +8,7 @@ import flixel.addons.editors.tiled.TiledTileLayer;
 import flixel.addons.editors.tiled.TiledObjectLayer;
 import flixel.addons.editors.tiled.TiledMap;
 
-class BaseTileState extends FlxState {
+class BaseTileState extends BaseGameState {
 	// Conditions
 	public var completeLevel:Bool;
 	public var gameOver:Bool;
@@ -16,11 +16,13 @@ class BaseTileState extends FlxState {
 	public var map:TiledMap;
 
 	// Groups
+	public var backgroundGrp:FlxTypedGroup<FlxTilemap>;
 	public var lvlGrp:FlxTypedGroup<FlxTilemap>;
 	public var decorationGrp:FlxTypedGroup<FlxTilemap>;
 	public var enemyGrp:FlxTypedGroup<Enemy>;
+	public var entityGrp:FlxTypedGroup<Actor>;
 
-	public static inline var TILESET_NAME:String = 'Tileset';
+	public static inline var TILESET_NAME:String = 'Tileset_v1';
 
 	override public function create() {
 		super.create();
@@ -29,8 +31,10 @@ class BaseTileState extends FlxState {
 	}
 
 	public function createLevel(?levelName:String) {
-		final map = new TiledMap(levelName);
-		this.map = map;
+		if (levelName != null) {
+			final map = new TiledMap(getLevel(levelName));
+			this.map = map;
+		}
 
 		createGroups();
 		createLevelInformation();
@@ -50,6 +54,8 @@ class BaseTileState extends FlxState {
 		enemyGrp = new FlxTypedGroup<Enemy>();
 		lvlGrp = new FlxTypedGroup<FlxTilemap>();
 		decorationGrp = new FlxTypedGroup<FlxTilemap>();
+		backgroundGrp = new FlxTypedGroup<FlxTilemap>();
+		entityGrp = new FlxTypedGroup<Actor>();
 	}
 
 	/**
@@ -76,15 +82,17 @@ class BaseTileState extends FlxState {
 			* ```
 	 */
 	public function addGroups() {
+		add(backgroundGrp);
 		add(lvlGrp);
 		add(decorationGrp);
 		add(enemyGrp);
+		add(entityGrp);
 	}
 
 	public function createLevelMap(tileLayer:TiledTileLayer) {
 		// Gets Tiled Image Data
 		var tileset:TiledTileSet = map.getTileSet(TILESET_NAME);
-
+		createBackgroundLayer();
 		if (tileLayer == null) {
 			// get with prefix
 			tileLayer = null;
@@ -92,6 +100,24 @@ class BaseTileState extends FlxState {
 			addLevelToGrp(tileLayer, tilesetPath(), tileset);
 		}
 		createDecorationLayers();
+	}
+
+	function createBackgroundLayer() {
+		var tileset:TiledTileSet = map.getTileSet(TILESET_NAME);
+		// This works because it has an ID given by Flixel
+		// var tilesetPath = AssetPaths.floor_tileset__png;
+
+		final tileLayer:TiledTileLayer = cast(map.getLayer('Background'));
+
+		if (tileLayer != null) {
+			final levelDecoration = new FlxTilemap();
+			levelDecoration.loadMapFromArray(tileLayer.tileArray, map.width,
+				map.height, tilesetPath(), map.tileWidth, map.tileHeight,
+				FlxTilemapAutoTiling.OFF, tileset.firstGID, 1, FlxObject.NONE);
+			backgroundGrp.add(levelDecoration);
+			// Tint Background
+			levelDecoration.color = 0xF0C0C0C0;
+		}
 	}
 
 	public function createDecorationLayers() {
@@ -137,6 +163,10 @@ class BaseTileState extends FlxState {
 	 * @return String
 	 */
 	public function tilesetPath():String {
-		return '';
+		return AssetPaths.tileset_v1__png;
+	}
+
+	public inline function getLevel(levelName:String) {
+		return 'assets/maps/sprocket/tiled/${levelName}.tmx';
 	}
 }

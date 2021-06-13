@@ -2,7 +2,7 @@ package game.char;
 
 import game.objects.NonSolid;
 import game.objects.Fast;
-import source.game.objects.Slow;
+import game.objects.Slow;
 import game.objects.Large;
 import game.objects.Small;
 import game.objects.Word;
@@ -17,13 +17,14 @@ class Actor extends FlxSprite {
 	public var notSolid:Bool;
 	public var wordModList:Array<Word>;
 
-	public function new(x:Float, y:Float, actorData:ActorData) {
+	public function new(x:Float, y:Float, ?actorData:ActorData) {
 		super(x, y);
 		data = actorData;
 		notSolid = false;
 		wordModList = [];
 		if (data != null) {
 			assignStats();
+			createSprite();
 		}
 	}
 
@@ -37,6 +38,12 @@ class Actor extends FlxSprite {
 		// def = data.def;
 		spd = data.spd;
 	}
+
+	/**
+	 * Assigns the sprite information and sets up animations for the 
+	 * entity.
+	 */
+	public function createSprite() {}
 
 	public function applyWord(word:Word) {
 		switch (Type.getClass(word)) {

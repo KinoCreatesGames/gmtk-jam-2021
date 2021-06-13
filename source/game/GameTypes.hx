@@ -99,3 +99,11 @@ enum Rating {
 	Great;
 	Amazing;
 }
+
+/**
+ * The type of entity we are referring to in LDTk.
+ */
+enum EntityType {
+	Player;
+	Enemy;
+}

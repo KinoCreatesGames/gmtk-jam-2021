@@ -105,12 +105,12 @@
                 {
                     "guid": "c1157689-db4e-46b2-ab08-1e3c3c6d507e",
                     "id": "0",
-                    "name": "Name",
+                    "name": "Sprocket",
                     "health": 1,
                     "atk": 5,
                     "def": 1,
-                    "spd": 1,
-                    "sprite": ""
+                    "sprite": "../../images/sprocket.png",
+                    "spd": 48
                 }
             ],
             "hidden": false,

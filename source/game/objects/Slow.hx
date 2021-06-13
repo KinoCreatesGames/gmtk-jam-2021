@@ -1,4 +1,4 @@
-package source.game.objects;
+package game.objects;
 
 /**
  * When the word is attached
