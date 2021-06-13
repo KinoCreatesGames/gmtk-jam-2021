@@ -2,12 +2,18 @@ package game.states;
 
 class BaseGameState extends FlxState {
 	var pauseSound:FlxSound;
+
 	var mouseCursor:FlxSprite;
 
 	override public function create() {
 		super.create();
+		startMusic();
 		setupMouse();
 		setupAssets();
+	}
+
+	function startMusic() {
+		FlxG.sound.playMusic(AssetPaths.JDSherbert_Sprocket_Tea__ogg);
 	}
 
 	function setupMouse() {
