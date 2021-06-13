@@ -9,7 +9,7 @@
 		"url": "https://ldtk.io"
 	},
 	"jsonVersion": "0.9.1",
-	"nextUid": 10,
+	"nextUid": 11,
 	"worldLayout": "Free",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
@@ -158,6 +158,31 @@
 					"textLangageMode": null
 				}
 			]
+		},
+		{
+			"identifier": "Goal",
+			"uid": 10,
+			"tags": [],
+			"width": 24,
+			"height": 24,
+			"resizableX": false,
+			"resizableY": false,
+			"keepAspectRatio": false,
+			"fillOpacity": 1,
+			"lineOpacity": 1,
+			"hollow": false,
+			"color": "#44AD64",
+			"renderMode": "Cross",
+			"showName": true,
+			"tilesetId": null,
+			"tileId": null,
+			"tileRenderMode": "Stretch",
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0,
+			"pivotY": 0,
+			"fieldDefs": []
 		}
 	], "tilesets": [
 		{
@@ -237,6 +262,17 @@
 							"height": 24,
 							"defUid": 7,
 							"px": [48,192],
+							"fieldInstances": []
+						},
+						{
+							"__identifier": "Goal",
+							"__grid": [19,9],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 24,
+							"height": 24,
+							"defUid": 10,
+							"px": [456,216],
 							"fieldInstances": []
 						}
 					]

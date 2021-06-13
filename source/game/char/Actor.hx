@@ -5,6 +5,7 @@ import game.objects.Fast;
 import game.objects.Slow;
 import game.objects.Large;
 import game.objects.Small;
+import game.objects.Walk;
 import game.objects.Word;
 
 // Note we'll be using tiles so don't go over the tile limit
@@ -16,6 +17,7 @@ class Actor extends FlxSprite {
 	public var spd:Int;
 	public var notSolid:Bool;
 	public var wordModList:Array<Word>;
+	public var canWalk:Bool;
 
 	public function new(x:Float, y:Float, ?actorData:ActorData) {
 		super(x, y);
@@ -55,6 +57,8 @@ class Actor extends FlxSprite {
 				this.spd = cast this.spd * .5;
 			case Fast:
 				this.spd = cast this.spd * 1.5;
+			case Walk:
+				canWalk = true;
 			case NonSolid:
 				this.notSolid = true;
 			case _:
@@ -65,6 +69,8 @@ class Actor extends FlxSprite {
 
 	public function removeWord(word:Word) {
 		switch (Type.getClass(word)) {
+			case Walk:
+				canWalk = false;
 			case Small:
 				this.scale.set(0.5, .5);
 				this.updateHitbox();

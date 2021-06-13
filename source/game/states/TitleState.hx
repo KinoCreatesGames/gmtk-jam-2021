@@ -27,6 +27,8 @@ class TitleState extends FlxState {
 		bgColor = KColor.RICH_BLACK_FORGRA;
 		var textColor = 0xf2d3ab;
 		// Create Title Text
+		// Play Title Music
+		FlxG.sound.playMusic(AssetPaths.boss_title__ogg);
 
 		var text = new FlxText(0, 0, -1, Globals.GAME_TITLE, 32);
 		text.color = textColor;
@@ -220,10 +222,7 @@ class TitleState extends FlxState {
 	}
 
 	public function clickStart() {
-		// var introText = DepotData.Cutscene.lines.getByFn((el) ->
-		// 	el.name == 'Intro');
-		// FlxG.switchState(new CutsceneState(new HubState(),
-		// 	introText.cutsceneText));
+		FlxG.switchState(new InstructionsState());
 	}
 
 	public function clickContinue() {

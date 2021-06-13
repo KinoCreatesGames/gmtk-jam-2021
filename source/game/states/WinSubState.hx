@@ -7,12 +7,17 @@ class WinSubState extends FlxSubState {
 	public var congratsText:FlxText;
 	public var continueButton:TextButton;
 	public var toTitleButton:TextButton;
+	public var nextLevel:FlxState;
+	public var mouseCursor:FlxSprite;
 
 	private var initialPosition:Float;
 	private var timeCount:Float;
 
-	public function new() {
+	public function new(?nextLevel:FlxState) {
 		super();
+		if (nextLevel != null) {
+			this.nextLevel = nextLevel;
+		}
 	}
 
 	override public function create() {
@@ -21,6 +26,17 @@ class WinSubState extends FlxSubState {
 		createBackground();
 		createCongrats();
 		createButtons();
+		setupMouse();
+	}
+
+	function setupMouse() {
+		mouseCursor = new FlxSprite(12, 12);
+		mouseCursor.loadGraphic(AssetPaths.mouse_cursor__png, true, 12, 12,
+			true);
+		mouseCursor.animation.add('moving', [0], null, true);
+		mouseCursor.animation.add('hold', [1], null, true);
+		FlxG.mouse.visible = false;
+		add(mouseCursor);
 	}
 
 	// note 480 x 270
@@ -51,11 +67,13 @@ class WinSubState extends FlxSubState {
 		var padding = 24;
 		var x = background.x + padding;
 		var y = background.y + (background.height - padding);
-		// continueButton = new TextButton(cast x, cast y, 'Continue',
-		// 	Globals.FONT_N, clickContinue);
+		if (nextLevel != null) {
+			continueButton = new TextButton(cast x, cast y, 'Continue',
+				Globals.FONT_N, clickContinue);
 
-		// continueButton.hoverColor = KColor.PRETTY_PINK;
-		// continueButton.clickColor = KColor.RICH_BLACK_FORGRA;
+			continueButton.hoverColor = KColor.PRETTY_PINK;
+			continueButton.clickColor = KColor.RICH_BLACK_FORGRA;
+		}
 
 		x = background.x + (background.width - padding);
 		toTitleButton = new TextButton(cast x, cast y, 'To Title',
@@ -70,6 +88,7 @@ class WinSubState extends FlxSubState {
 
 	override public function update(elapsed:Float) {
 		super.update(elapsed);
+		updateMouse();
 		updateCongrats(elapsed);
 	}
 
@@ -81,8 +100,8 @@ class WinSubState extends FlxSubState {
 	public function clickContinue() {
 		FlxG.camera.fade(KColor.BLACK, 1, false, () -> {
 			close();
-			// FlxG.camera.fade(KColor.BLACK, 1, true);
-			// FlxG.switchState(new TitleState());
+			FlxG.camera.fade(KColor.BLACK, 1, true);
+			FlxG.switchState(nextLevel);
 		});
 	}
 
@@ -92,5 +111,11 @@ class WinSubState extends FlxSubState {
 			// FlxG.camera.fade(KColor.BLACK, 1, true);
 			FlxG.switchState(new TitleState());
 		});
+	}
+
+	function updateMouse() {
+		mouseCursor.scrollFactor.set(0, 0);
+		var mousePosition = FlxG.mouse.getPosition();
+		mouseCursor.setPosition(mousePosition.x, mousePosition.y);
 	}
 }

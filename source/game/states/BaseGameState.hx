@@ -2,13 +2,12 @@ package game.states;
 
 class BaseGameState extends FlxState {
 	var pauseSound:FlxSound;
-
+	var levelCompleteSound:FlxSound;
 	var mouseCursor:FlxSprite;
 
 	override public function create() {
 		super.create();
 		startMusic();
-		setupMouse();
 		setupAssets();
 	}
 
@@ -28,6 +27,7 @@ class BaseGameState extends FlxState {
 
 	public function setupAssets() {
 		pauseSound = FlxG.sound.load(AssetPaths.pause_in__wav);
+		levelCompleteSound = FlxG.sound.load(AssetPaths.Victory__ogg);
 	}
 
 	function openPauseState() {
