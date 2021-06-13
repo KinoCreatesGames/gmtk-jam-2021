@@ -2,6 +2,7 @@ package game.states;
 
 class CreditsSubState extends FlxSubState {
 	var titleText:FlxText;
+	var mouseCursor:FlxSprite;
 
 	public function new() {
 		super(KColor.RICH_BLACK_FORGRA_LOW);
@@ -11,8 +12,19 @@ class CreditsSubState extends FlxSubState {
 		super.create();
 		var verticalPadding = 24;
 		var horizontalPadding = 24;
+		setupMouse();
 		createTitle(horizontalPadding, verticalPadding);
 		createCredits(horizontalPadding, verticalPadding * 3);
+	}
+
+	function setupMouse() {
+		mouseCursor = new FlxSprite(12, 12);
+		mouseCursor.loadGraphic(AssetPaths.mouse_cursor__png, true, 12, 12,
+			true);
+		mouseCursor.animation.add('moving', [0], null, true);
+		mouseCursor.animation.add('hold', [1], null, true);
+		FlxG.mouse.visible = false;
+		add(mouseCursor);
 	}
 
 	function createTitle(x:Float, y:Float) {
@@ -31,5 +43,11 @@ class CreditsSubState extends FlxSubState {
 		jdText.screenCenterHorz();
 		add(kinoText);
 		add(jdText);
+	}
+
+	function updateMouse() {
+		mouseCursor.scrollFactor.set(0, 0);
+		var mousePosition = FlxG.mouse.getPosition();
+		mouseCursor.setPosition(mousePosition.x, mousePosition.y);
 	}
 }
