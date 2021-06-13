@@ -7,6 +7,7 @@ class GameOverSubState extends FlxSubState {
 	public var gameOverText:FlxText;
 	public var continueButton:TextButton;
 	public var toTitleButton:TextButton;
+	public var mouseCursor:FlxSprite;
 
 	private var initialPosition:Float;
 	private var timeCount:Float;
@@ -21,6 +22,17 @@ class GameOverSubState extends FlxSubState {
 		createBackground();
 		createCongrats();
 		createButtons();
+		setupMouse();
+	}
+
+	function setupMouse() {
+		mouseCursor = new FlxSprite(12, 12);
+		mouseCursor.loadGraphic(AssetPaths.mouse_cursor__png, true, 12, 12,
+			true);
+		mouseCursor.animation.add('moving', [0], null, true);
+		mouseCursor.animation.add('hold', [1], null, true);
+		FlxG.mouse.visible = false;
+		add(mouseCursor);
 	}
 
 	// note 480 x 270
@@ -92,5 +104,11 @@ class GameOverSubState extends FlxSubState {
 
 			FlxG.switchState(new TitleState());
 		});
+	}
+
+	function updateMouse() {
+		mouseCursor.scrollFactor.set(0, 0);
+		var mousePosition = FlxG.mouse.getPosition();
+		mouseCursor.setPosition(mousePosition.x, mousePosition.y);
 	}
 }

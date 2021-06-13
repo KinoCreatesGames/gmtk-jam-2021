@@ -77,7 +77,6 @@ class PlayState extends BaseTileState {
 				case MPLATFORM:
 					var path = [];
 					for (name => val in entity.properties.keys) {
-						trace(name, val);
 						if (name.contains('Path')) {
 							var tileWidth = cast map.getTileSet(BaseTileState.TILESET_NAME)
 								.tileWidth;
