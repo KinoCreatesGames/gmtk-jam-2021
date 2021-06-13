@@ -26,7 +26,6 @@ class Player extends Actor {
 	function idle(elapsed:Float) {
 		animation.play('idle');
 		if (canWalk) {
-			this.velocity.set(this.spd, 0);
 			state.currentState = moving;
 		}
 	}
@@ -37,8 +36,10 @@ class Player extends Actor {
 			this.velocity.set(0, 0);
 			this.drag.x = 600;
 			state.currentState = idle;
+		} else {
+			this.velocity.x = this.spd;
+			this.drag.x = 0;
 		}
-		this.drag.x = 0;
 	}
 
 	override public function update(elapsed:Float) {

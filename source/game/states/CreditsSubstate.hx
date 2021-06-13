@@ -34,8 +34,9 @@ class CreditsSubState extends FlxSubState {
 	}
 
 	function createCredits(x:Float, y:Float) {
-		var kinoText = new FlxText(x, y, -1, 'Designer Kino Rose',
+		var kinoText = new FlxText(x, y, -1, 'Designer Kino Rose - @EISKino',
 			Globals.FONT_L);
+		y += 40;
 		var jdText = new FlxText(x, y, -1, 'Music by JDSherbert',
 			Globals.FONT_L);
 
@@ -43,6 +44,14 @@ class CreditsSubState extends FlxSubState {
 		jdText.screenCenterHorz();
 		add(kinoText);
 		add(jdText);
+	}
+
+	override function update(elapsed:Float) {
+		super.update(elapsed);
+		updateMouse();
+		if (FlxG.keys.anyJustPressed([ESCAPE, X, Z]) || FlxG.mouse.justPressed) {
+			close();
+		}
 	}
 
 	function updateMouse() {

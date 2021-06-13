@@ -63,15 +63,20 @@ class Actor extends FlxSprite {
 
 				case Slow:
 					this.spd = cast this.spd * .5;
+				// this.velocity.x = this.spd * (this.isReverse ? -1 : 1);
 				case Fast:
 					this.spd = cast this.spd * 1.5;
+				// this.velocity.x = this.spd * (this.isReverse ? -1 : 1);
 				case Walk:
 					canWalk = true;
 				case NonSolid:
 					this.notSolid = true;
 				case Reverse:
 					this.isReverse = true;
-					this.velocity.x *= -1;
+					facing = FlxObject.LEFT;
+					this.spd = this.spd * -1;
+					trace(this.spd);
+					trace(this.velocity);
 				case Jump:
 					if (this.isTouching(FlxObject.FLOOR)) {
 						this.velocity.y -= 128;
@@ -97,13 +102,16 @@ class Actor extends FlxSprite {
 					this.updateHitbox();
 				case Slow:
 					this.spd = cast this.spd / .5;
+				// this.velocity.x = this.spd * (this.isReverse ? -1 : 1);
 				case Fast:
 					this.spd = cast this.spd / 1.5;
+				// this.velocity.x = this.spd * (this.isReverse ? -1 : 1);
 				case NonSolid:
 					this.notSolid = false;
 				case Reverse:
 					this.isReverse = false;
-					this.velocity.x *= -1;
+					facing = FlxObject.RIGHT;
+					this.spd = this.spd * -1;
 				case _:
 					// Do nothing
 			}

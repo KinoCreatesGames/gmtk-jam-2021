@@ -14,7 +14,12 @@ class InstructionsState extends FlxState {
 		var content = 'This is a mouse driven game.
     You use your mouse in order to join words to entities in the world.
     Drag and drag the words onto entities to give them abilities!
-    Use your words wisely in order to get Sprocket to the goal!';
+    Use your words wisely in order to get Sprocket to the goal!
+		You can press R to reset the stage.'.split("\n")
+			.map((line) -> {
+				return line.trim();
+			})
+			.join("\n");
 		var text = new FlxText(0, 0, 300, content, Globals.FONT_N);
 		text.screenCenter();
 		add(text);

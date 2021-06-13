@@ -60,7 +60,6 @@ class TitleState extends FlxState {
 		sprocket.loadGraphic(AssetPaths.sprocket__png, true, 24, 24, true);
 		sprocket.animation.add("run", [0, 1, 2], 12, true);
 		add(sprocket);
-		trace(sprocket);
 		sprocket.animation.play('run');
 		sprocket.cameraCenterHorz();
 	}
@@ -113,12 +112,12 @@ class TitleState extends FlxState {
 		playButton.screenCenter();
 		playButton.y += y;
 		y += spacing;
-		continueButton = new TextButton(0, 0, Globals.TEXT_CONTINUE,
-			Globals.FONT_N, clickContinue);
-		continueButton.hoverColor = KColor.BURGUNDY;
-		continueButton.clickColor = KColor.BURGUNDY;
-		continueButton.screenCenter();
-		continueButton.y += y;
+		// continueButton = new TextButton(0, 0, Globals.TEXT_CONTINUE,
+		// 	Globals.FONT_N, clickContinue);
+		// continueButton.hoverColor = KColor.BURGUNDY;
+		// continueButton.clickColor = KColor.BURGUNDY;
+		// continueButton.screenCenter();
+		// continueButton.y += y;
 		y += spacing;
 		optionsButton = new TextButton(0, 0, Globals.TEXT_OPTIONS,
 			Globals.FONT_N, clickOptions);
@@ -146,14 +145,14 @@ class TitleState extends FlxState {
 
 		playButton.canClick = false;
 		playButton.alpha = 0;
-		continueButton.canClick = false;
-		continueButton.alpha = 0;
+		// continueButton.canClick = false;
+		// continueButton.alpha = 0;
 		optionsButton.canClick = false;
 		optionsButton.alpha = 0;
 		creditsButton.canClick = false;
 		creditsButton.alpha = 0;
 		add(playButton);
-		add(continueButton);
+		// add(continueButton);
 		add(optionsButton);
 		add(creditsButton);
 		#if desktop
