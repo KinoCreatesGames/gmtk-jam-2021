@@ -25,8 +25,8 @@ class SettingsSubState extends FlxSubState {
 		createTitle(0, 0);
 		createExit(FlxG.width, verticalPadding);
 		createVolume(margin, titleText.y + titleText.height + verticalPadding);
-		createTextSpeed(margin,
-			(verticalPadding + volumeLabel.y + volumeLabel.height));
+		// createTextSpeed(margin,
+		// 	(verticalPadding + volumeLabel.y + volumeLabel.height));
 
 		members.iter((member) -> {
 			if (Std.isOfType(member, FlxObject)) {
