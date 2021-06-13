@@ -7,6 +7,8 @@ import flixel.FlxObject;
  * in the game.
  */
 class SettingsSubState extends FlxSubState {
+	var mouseCursor:FlxSprite;
+
 	public var titleText:FlxText;
 	public var volumeLabel:FlxText;
 	public var volumeText:FlxText;
@@ -19,6 +21,7 @@ class SettingsSubState extends FlxSubState {
 		bgColor = KColor.BLACK;
 		var verticalPadding = 12;
 		var margin = 24;
+		setupMouse();
 		createTitle(0, 0);
 		createExit(FlxG.width, verticalPadding);
 		createVolume(margin, titleText.y + titleText.height + verticalPadding);
@@ -31,6 +34,16 @@ class SettingsSubState extends FlxSubState {
 				displayObj.scrollFactor.set(0, 0);
 			}
 		});
+	}
+
+	function setupMouse() {
+		mouseCursor = new FlxSprite(12, 12);
+		mouseCursor.loadGraphic(AssetPaths.mouse_cursor__png, true, 12, 12,
+			true);
+		mouseCursor.animation.add('moving', [0], null, true);
+		mouseCursor.animation.add('hold', [1], null, true);
+		FlxG.mouse.visible = false;
+		add(mouseCursor);
 	}
 
 	function createTitle(x:Float, y:Float) {
@@ -157,5 +170,12 @@ class SettingsSubState extends FlxSubState {
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
+		updateMouse();
+	}
+
+	function updateMouse() {
+		mouseCursor.scrollFactor.set(0, 0);
+		var mousePosition = FlxG.mouse.getPosition();
+		mouseCursor.setPosition(mousePosition.x, mousePosition.y);
 	}
 }
