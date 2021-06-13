@@ -62,7 +62,10 @@ class PlayState extends BaseTileState {
 		// map.getLayer()
 		createLevelMap(cast this.map.getLayer('Level'));
 		createEntities();
+		applyModifiers();
 	}
+
+	function applyModifiers() {}
 
 	/**
 	 * Spawns Entities into the game.
@@ -110,8 +113,10 @@ class PlayState extends BaseTileState {
 	}
 
 	override public function processCollision() {
-		FlxG.collide(player, lvlGrp);
-		FlxG.collide(player, hazardGrp);
+		if (player.notSolid == false) {
+			FlxG.collide(player, lvlGrp);
+			FlxG.collide(player, hazardGrp);
+		}
 		FlxG.overlap(player, deathGrp, (_, _) -> {
 			gameOver = true;
 		});

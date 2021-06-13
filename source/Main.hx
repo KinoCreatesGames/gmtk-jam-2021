@@ -1,5 +1,7 @@
 package;
 
+import game.states.LevelSixState;
+import game.states.LevelFiveState;
 import game.states.LevelFourState;
 import game.states.LevelThreeState;
 import game.states.LevelTwoState;

@@ -22,12 +22,14 @@ class Actor extends FlxSprite {
 	public var wordModList:Array<Word>;
 	public var canWalk:Bool = false;
 	public var isReverse:Bool = false;
+	public var jumpSound:FlxSound;
 
 	public function new(x:Float, y:Float, ?actorData:ActorData) {
 		super(x, y);
 		data = actorData;
 		notSolid = false;
 		wordModList = [];
+		jumpSound = FlxG.sound.load(AssetPaths.jump_sound__ogg);
 		if (data != null) {
 			assignStats();
 			createSprite();
@@ -80,6 +82,7 @@ class Actor extends FlxSprite {
 				case Jump:
 					if (this.isTouching(FlxObject.FLOOR)) {
 						this.velocity.y -= 128;
+						this.jumpSound.play();
 					}
 					this.removeWord();
 				case _:

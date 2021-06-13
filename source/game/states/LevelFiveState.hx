@@ -1,30 +1,27 @@
 package game.states;
 
+import game.objects.NonSolid;
 import game.objects.Reverse;
 import game.objects.Jump;
 import game.objects.Fast;
 import game.objects.Walk;
 
-class LevelFourState extends PlayState {
+class LevelFiveState extends PlayState {
 	override public function create() {
 		super.create();
-		createLevel('0004_Level_3');
+		createLevel('0005_Level_4');
 	}
 
 	override public function addWords() {
 		var walk = new Walk(30, 30);
-		var fast = new Fast(30, 60);
-		var fastTwo = new Fast(70, 60);
-		var jump = new Jump(30, 90);
+		var notSolid = new NonSolid(30, 90);
 		var reverse = new Reverse(30, 120);
 		wordGrp.add(walk);
-		wordGrp.add(fast);
-		wordGrp.add(fastTwo);
 		wordGrp.add(reverse);
-		wordGrp.add(jump);
+		wordGrp.add(notSolid);
 	}
 
 	override public function nextLevel() {
-		return new LevelFiveState();
+		return new LevelSixState();
 	}
 }

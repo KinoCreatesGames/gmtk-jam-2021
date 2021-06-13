@@ -12,7 +12,9 @@ class BaseGameState extends FlxState {
 	}
 
 	function startMusic() {
-		FlxG.sound.playMusic(AssetPaths.JDSherbert_Sprocket_Tea__ogg);
+		if (FlxG.sound.music == null) {
+			FlxG.sound.playMusic(AssetPaths.JDSherbert_Sprocket_Tea__ogg);
+		}
 	}
 
 	function setupMouse() {

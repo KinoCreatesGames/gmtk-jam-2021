@@ -118,7 +118,7 @@ class TitleState extends FlxState {
 		// continueButton.clickColor = KColor.BURGUNDY;
 		// continueButton.screenCenter();
 		// continueButton.y += y;
-		y += spacing;
+		// y += spacing;
 		optionsButton = new TextButton(0, 0, Globals.TEXT_OPTIONS,
 			Globals.FONT_N, clickOptions);
 		optionsButton.hoverColor = KColor.BURGUNDY;
@@ -188,11 +188,11 @@ class TitleState extends FlxState {
 			background.fadeIn(fadeTime);
 			playButton.fadeIn(fadeTime);
 			if (playButton.alpha >= .9) {
-				continueButton.fadeIn(fadeTime);
-			}
-			if (continueButton.alpha >= .9) {
 				optionsButton.fadeIn(fadeTime);
 			}
+			// if (continueButton.alpha >= .9) {
+			// 	optionsButton.fadeIn(fadeTime);
+			// }
 			if (optionsButton.alpha >= .9) {
 				creditsButton.fadeIn(fadeTime);
 				#if !desktop
@@ -211,7 +211,7 @@ class TitleState extends FlxState {
 
 		if (completeFadeStart) {
 			playButton.canClick = true;
-			continueButton.canClick = true;
+			// continueButton.canClick = true;
 			optionsButton.canClick = true;
 			creditsButton.canClick = true;
 			#if desktop

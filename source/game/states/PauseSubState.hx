@@ -67,6 +67,7 @@ class PauseSubState extends FlxSubState {
 
 	public function resumeGame() {
 		pauseExitSound.play();
+		FlxG.sound.music.resume();
 		close();
 	}
 

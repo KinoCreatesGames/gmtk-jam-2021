@@ -13,7 +13,7 @@ class ThankYouState extends FlxState {
 		var content = 'Thank you for playing!'.split("\n").map((line) -> {
 			return line.trim();
 		}).join("\n");
-		var text = new FlxText(0, 0, 300, content, Globals.FONT_N);
+		var text = new FlxText(0, 0, -1, content, Globals.FONT_N);
 		text.screenCenter();
 		add(text);
 	}
@@ -38,7 +38,7 @@ class ThankYouState extends FlxState {
 		if (FlxG.mouse.justPressed) {
 			FlxG.camera.fade(KColor.BLACK, 1, false, () -> {
 				FlxG.camera.fade(KColor.BLACK, 1, true);
-				FlxG.switchState(new LevelOneState());
+				FlxG.switchState(new TitleState());
 			});
 		}
 	}

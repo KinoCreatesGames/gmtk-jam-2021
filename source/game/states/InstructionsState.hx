@@ -30,10 +30,15 @@ class InstructionsState extends FlxState {
 		processStateTransition();
 	}
 
+	function startMusic() {
+		FlxG.sound.playMusic(AssetPaths.JDSherbert_Sprocket_Tea__ogg);
+	}
+
 	public function processStateTransition() {
 		if (FlxG.mouse.justPressed) {
 			FlxG.camera.fade(KColor.BLACK, 1, false, () -> {
 				FlxG.camera.fade(KColor.BLACK, 1, true);
+				startMusic();
 				FlxG.switchState(new LevelOneState());
 			});
 		}
