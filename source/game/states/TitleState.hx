@@ -39,13 +39,14 @@ class TitleState extends FlxState {
 		completeFadeStart = false;
 		initializeSave();
 		createCharacter(text.x, text.y);
-		setupMouse();
+
 		createBackground();
 		createPressStart();
 		createButtons();
 		// createControls();
 		createCredits();
 		createVersion();
+		setupMouse();
 		super.create();
 	}
 

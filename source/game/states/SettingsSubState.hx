@@ -21,10 +21,11 @@ class SettingsSubState extends FlxSubState {
 		bgColor = KColor.BLACK;
 		var verticalPadding = 12;
 		var margin = 24;
-		setupMouse();
+
 		createTitle(0, 0);
 		createExit(FlxG.width, verticalPadding);
 		createVolume(margin, titleText.y + titleText.height + verticalPadding);
+		updateVolumeText();
 		// createTextSpeed(margin,
 		// 	(verticalPadding + volumeLabel.y + volumeLabel.height));
 
@@ -34,6 +35,7 @@ class SettingsSubState extends FlxSubState {
 				displayObj.scrollFactor.set(0, 0);
 			}
 		});
+		setupMouse();
 	}
 
 	function setupMouse() {
@@ -164,7 +166,7 @@ class SettingsSubState extends FlxSubState {
 	function saveSettings() {
 		var save = DataPlugin.Save.createSaveSettings();
 		save.data.volume = FlxG.sound.volume;
-		save.data.textMode = textSpeedText.text;
+		// save.data.textMode = textSpeedText.text;
 		save.close();
 	}
 
