@@ -48,44 +48,52 @@ class Actor extends FlxSprite {
 	public function createSprite() {}
 
 	public function applyWord(word:Word) {
-		switch (Type.getClass(word)) {
-			case Small:
+		if (word != null) {
+			switch (Type.getClass(word)) {
+				case Small:
 
-			case Large:
+				case Large:
 
-			case Slow:
-				this.spd = cast this.spd * .5;
-			case Fast:
-				this.spd = cast this.spd * 1.5;
-			case Walk:
-				canWalk = true;
-			case NonSolid:
-				this.notSolid = true;
-			case _:
-				// Do nothing
+				case Slow:
+					this.spd = cast this.spd * .5;
+				case Fast:
+					this.spd = cast this.spd * 1.5;
+				case Walk:
+					canWalk = true;
+				case NonSolid:
+					this.notSolid = true;
+				case _:
+					// Do nothing
+			}
+			this.wordModList.push(word);
+			word.visible = false;
 		}
-		this.wordModList.push(word);
 	}
 
-	public function removeWord(word:Word) {
-		switch (Type.getClass(word)) {
-			case Walk:
-				canWalk = false;
-			case Small:
-				this.scale.set(0.5, .5);
-				this.updateHitbox();
-			case Large:
-				this.scale.set(0.5, 0.5);
-				this.updateHitbox();
-			case Slow:
-				this.spd = cast this.spd / .5;
-			case Fast:
-				this.spd = cast this.spd / 1.5;
-			case NonSolid:
-				this.notSolid = false;
-			case _:
-				// Do nothing
+	public function removeWord() {
+		var word = this.wordModList.pop();
+		if (word != null) {
+			switch (Type.getClass(word)) {
+				case Walk:
+					canWalk = false;
+				case Small:
+					this.scale.set(0.5, .5);
+					this.updateHitbox();
+				case Large:
+					this.scale.set(0.5, 0.5);
+					this.updateHitbox();
+				case Slow:
+					this.spd = cast this.spd / .5;
+				case Fast:
+					this.spd = cast this.spd / 1.5;
+				case NonSolid:
+					this.notSolid = false;
+				case _:
+					// Do nothing
+			}
+			this.wordModList.remove(word);
+			word.visible = true;
+			word.setPosition(this.x, this.y - 32);
 		}
-		this.wordModList.remove(word);
 	}
 }

@@ -10,6 +10,8 @@ class Player extends Actor {
 
 	public function new(x:Float, y:Float, ?actorData:ActorData) {
 		super(x, y, actorData);
+		this.drag.x = 600; // need to apply drag so that when velocity is 0
+		// Player doesn't keep moving
 		state = new State(idle);
 	}
 
@@ -23,10 +25,20 @@ class Player extends Actor {
 
 	function idle(elapsed:Float) {
 		animation.play('idle');
+		if (canWalk) {
+			this.velocity.set(this.spd, 0);
+			state.currentState = moving;
+		}
 	}
 
 	function moving(elapsed:Float) {
 		animation.play('run');
+		if (canWalk == false) {
+			this.velocity.set(0, 0);
+			this.drag.x = 600;
+			state.currentState = idle;
+		}
+		this.drag.x = 0;
 	}
 
 	override public function update(elapsed:Float) {

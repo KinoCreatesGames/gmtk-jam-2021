@@ -21,6 +21,8 @@ class BaseTileState extends BaseGameState {
 	public var decorationGrp:FlxTypedGroup<FlxTilemap>;
 	public var enemyGrp:FlxTypedGroup<Enemy>;
 	public var entityGrp:FlxTypedGroup<Actor>;
+	public var doorGrp:FlxTypedGroup<FlxSprite>;
+	public var hazardGrp:FlxTypedGroup<FlxSprite>;
 
 	public static inline var TILESET_NAME:String = 'Tileset_v1';
 
@@ -54,7 +56,9 @@ class BaseTileState extends BaseGameState {
 		enemyGrp = new FlxTypedGroup<Enemy>();
 		lvlGrp = new FlxTypedGroup<FlxTilemap>();
 		decorationGrp = new FlxTypedGroup<FlxTilemap>();
+		hazardGrp = new FlxTypedGroup<FlxSprite>();
 		backgroundGrp = new FlxTypedGroup<FlxTilemap>();
+		doorGrp = new FlxTypedGroup<FlxSprite>();
 		entityGrp = new FlxTypedGroup<Actor>();
 	}
 
@@ -85,6 +89,8 @@ class BaseTileState extends BaseGameState {
 		add(backgroundGrp);
 		add(lvlGrp);
 		add(decorationGrp);
+		add(hazardGrp);
+		add(doorGrp);
 		add(enemyGrp);
 		add(entityGrp);
 	}

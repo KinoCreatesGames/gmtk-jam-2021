@@ -1,5 +1,8 @@
 package game.states;
 
+import game.hazard.DeathArea;
+import flixel.addons.editors.tiled.TiledTileLayer;
+import game.hazard.MovingPlatform;
 import game.objects.Walk;
 import flixel.addons.editors.tiled.TiledObjectLayer;
 import game.objects.Word;
@@ -11,12 +14,17 @@ enum abstract EntityNames(String) from String to String {
 	var PLAYER = 'Player';
 	var ENEMY = 'Enemy';
 	var GOAL = 'Goal';
+	var MPLATFORM = 'MovingPlatform';
+	var DEATH = 'DeathArea';
 }
 
 class PlayState extends BaseTileState {
 	public var wordGrp:FlxTypedGroup<Word>;
 	public var carriedWord:Word;
-	public var doorGrp:FlxTypedGroup<FlxSprite>;
+	public var grabSound:FlxSound;
+	public var releaseSound:FlxSound;
+	public var deathGrp:FlxTypedGroup<FlxSprite>;
+
 	public var player:Player;
 	public var goal:FlxSprite;
 
@@ -24,18 +32,25 @@ class PlayState extends BaseTileState {
 		super.create();
 	}
 
+	override public function setupAssets() {
+		super.setupAssets();
+		grabSound = FlxG.sound.load(AssetPaths.grab_sound__ogg);
+		releaseSound = FlxG.sound.load(AssetPaths.release_sound__ogg);
+	}
+
 	override public function createGroups() {
 		super.createGroups();
 		wordGrp = new FlxTypedGroup<Word>();
+		deathGrp = new FlxTypedGroup<FlxSprite>();
 		var word = new Walk(30, 30);
-		doorGrp = new FlxTypedGroup<FlxSprite>();
+
 		wordGrp.add(word);
 	}
 
 	override public function addGroups() {
 		super.addGroups();
 		add(wordGrp);
-		add(doorGrp);
+		add(deathGrp);
 		setupMouse();
 	}
 
@@ -59,6 +74,25 @@ class PlayState extends BaseTileState {
 					player = new Player(entity.x, entity.y,
 						DepotData.Actors_Sprocket);
 					entityGrp.add(player);
+				case MPLATFORM:
+					var path = [];
+					for (name => val in entity.properties.keys) {
+						trace(name, val);
+						if (name.contains('Path')) {
+							var tileWidth = cast map.getTileSet(BaseTileState.TILESET_NAME)
+								.tileWidth;
+
+							var xy = val.split(',')
+								.map((el) -> Std.parseInt(el) * tileWidth);
+							path.push(new FlxPoint(xy[0], xy[1]));
+						}
+					}
+					var mPlatform = new MovingPlatform(entity.x, entity.y,
+						path);
+					hazardGrp.add(mPlatform);
+				case DEATH:
+					var deathSprite = new DeathArea(entity.x, entity.y);
+					deathGrp.add(deathSprite);
 				case GOAL:
 					goal = new FlxSprite(entity.x, entity.y);
 					goal.loadGraphic(AssetPaths.door_sprocket__png, false, 24,
@@ -74,6 +108,10 @@ class PlayState extends BaseTileState {
 
 	override public function processCollision() {
 		FlxG.collide(player, lvlGrp);
+		FlxG.collide(player, hazardGrp);
+		FlxG.overlap(player, deathGrp, (_, _) -> {
+			gameOver = true;
+		});
 		FlxG.overlap(player, goal, playerTouchGoal);
 	}
 
@@ -102,8 +140,9 @@ class PlayState extends BaseTileState {
 	}
 
 	function processAttachDetachWords(elapsed:Float) {
-		FlxG.overlap(mouseCursor, wordGrp, grabWord);
 		FlxG.overlap(mouseCursor, entityGrp, attachWord);
+		FlxG.overlap(mouseCursor, entityGrp, detachWord);
+		FlxG.overlap(mouseCursor, wordGrp, grabWord);
 		// if (FlxG.mouse.overlaps(entityGrp) && FlxG.mouse.justReleased
 		// 	&& carriedWord != null) {
 		// 	// Drops word onto the target
@@ -116,10 +155,12 @@ class PlayState extends BaseTileState {
 	function grabWord(mouse:FlxSprite, word:Word) {
 		// Release word on release
 		if (FlxG.mouse.justReleased) {
+			releaseSound.play();
 			carriedWord = null;
 		}
 		// Grab word
 		if (FlxG.mouse.justPressed) {
+			grabSound.play();
 			carriedWord = word;
 		}
 	}
@@ -133,7 +174,10 @@ class PlayState extends BaseTileState {
 	}
 
 	function detachWord(mouse:FlxSprite, actor:Actor) {
-		if (true) {}
+		if (FlxG.mouse.justPressed) {
+			// Remove the latest word instead
+			actor.removeWord();
+		}
 	}
 
 	function processStateTransition(elapsed:Float) {
@@ -148,10 +192,14 @@ class PlayState extends BaseTileState {
 
 		if (completeLevel) {
 			levelCompleteSound.play();
-			if (levelCompleteSound.playing == false) {
-				// Show Win SubState
-				openSubState(new WinSubState(nextLevel()));
-			}
+
+			// Show Win SubState
+			openSubState(new WinSubState(nextLevel()));
+		}
+
+		// Show Game Over
+		if (gameOver) {
+			openSubState(new GameOverSubState());
 		}
 	}
 

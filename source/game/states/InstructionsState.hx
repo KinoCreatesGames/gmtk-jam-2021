@@ -15,6 +15,7 @@ class InstructionsState extends FlxState {
     Drag and drag the words onto entities to give them abilities!
     Use your words wisely in order to get Sprocket to the goal!';
 		var text = new FlxText(0, 0, 300, content, Globals.FONT_N);
+		add(text);
 	}
 
 	override public function update(elapsed:Float) {
