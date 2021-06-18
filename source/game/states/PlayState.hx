@@ -114,10 +114,10 @@ class PlayState extends BaseLDTkState {
 	 * Creates words based off the word layer in LDTk.
 	 */
 	function createWords() {
-		lvl.l_Entities.all_Word.iter((word) -> {
+		lvl.l_Words.all_Word.iter((word) -> {
 			// Go by entity type
 			var wordType = word.f_WordType;
-			var word:Word = switch (wordType) {
+			var newWord:Word = switch (wordType) {
 				case WalkW:
 					new Walk(word.pixelX, word.pixelY);
 				case FastW:
@@ -137,7 +137,7 @@ class PlayState extends BaseLDTkState {
 				case _:
 					null; // Do nothing
 			}
-			wordGrp.add(word);
+			wordGrp.add(newWord);
 		});
 	}
 

@@ -82,6 +82,8 @@ class BaseLDTkState extends BaseGameState {
 	 */
 	public function createLevelLayer() {
 		lvl.l_Level.render(lvlGrp);
+		lvlGrp.solid = true;
+		lvlGrp.immovable = true;
 	}
 
 	/**
