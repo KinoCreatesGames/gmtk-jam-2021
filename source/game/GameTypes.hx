@@ -107,3 +107,19 @@ enum EntityType {
 	Player;
 	Enemy;
 }
+
+/**
+ * Word types for creating the words 
+ * in LDTk and spawning them on the map.
+ * Makes it easier for us to create levels quickly.
+ */
+enum WordType {
+	FastW;
+	JumpW;
+	LargeW;
+	NonSolidW;
+	ReverseW;
+	SlowW;
+	SmallW;
+	WalkW;
+}

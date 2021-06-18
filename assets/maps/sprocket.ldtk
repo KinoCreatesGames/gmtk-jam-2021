@@ -9,7 +9,7 @@
 		"url": "https://ldtk.io"
 	},
 	"jsonVersion": "0.9.1",
-	"nextUid": 20,
+	"nextUid": 23,
 	"worldLayout": "Free",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
@@ -254,6 +254,52 @@
 			"pivotX": 0,
 			"pivotY": 0,
 			"fieldDefs": []
+		},
+		{
+			"identifier": "Word",
+			"uid": 21,
+			"tags": [],
+			"width": 16,
+			"height": 16,
+			"resizableX": false,
+			"resizableY": false,
+			"keepAspectRatio": false,
+			"fillOpacity": 1,
+			"lineOpacity": 1,
+			"hollow": false,
+			"color": "#BC892B",
+			"renderMode": "Rectangle",
+			"showName": true,
+			"tilesetId": null,
+			"tileId": null,
+			"tileRenderMode": "FitInside",
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0,
+			"pivotY": 0,
+			"fieldDefs": [
+				{
+					"identifier": "WordType",
+					"__type": "ExternEnum.WordType",
+					"uid": 22,
+					"type": { "id": "F_Enum", "params": [20] },
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "ValueOnly",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": true,
+					"editorCutLongValues": true,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLangageMode": null
+				}
+			]
 		}
 	], "tilesets": [
 		{
@@ -278,8 +324,18 @@
 			{ "id": "Amazing", "tileId": null, "color": 0, "__tileSrcRect": null },
 			{ "id": "Good", "tileId": null, "color": 0, "__tileSrcRect": null },
 			{ "id": "Great", "tileId": null, "color": 0, "__tileSrcRect": null }
-		], "iconTilesetUid": null, "externalRelPath": "../../source/game/GameTypes.hx", "externalFileChecksum": "20af4cba67229e6daca446a0ec3c8165" },
-		{ "identifier": "EntityType", "uid": 6, "values": [ { "id": "Enemy", "tileId": null, "color": 13447216, "__tileSrcRect": null }, { "id": "Player", "tileId": null, "color": 3377378, "__tileSrcRect": null } ], "iconTilesetUid": null, "externalRelPath": "../../source/game/GameTypes.hx", "externalFileChecksum": "20af4cba67229e6daca446a0ec3c8165" }
+		], "iconTilesetUid": null, "externalRelPath": "../../source/game/GameTypes.hx", "externalFileChecksum": "2b4cf74bfb12e03d4452dad42c97a553" },
+		{ "identifier": "EntityType", "uid": 6, "values": [ { "id": "Enemy", "tileId": null, "color": 13447216, "__tileSrcRect": null }, { "id": "Player", "tileId": null, "color": 3377378, "__tileSrcRect": null } ], "iconTilesetUid": null, "externalRelPath": "../../source/game/GameTypes.hx", "externalFileChecksum": "2b4cf74bfb12e03d4452dad42c97a553" },
+		{ "identifier": "WordType", "uid": 20, "values": [
+			{ "id": "FastW", "tileId": null, "color": 0, "__tileSrcRect": null },
+			{ "id": "JumpW", "tileId": null, "color": 0, "__tileSrcRect": null },
+			{ "id": "LargeW", "tileId": null, "color": 0, "__tileSrcRect": null },
+			{ "id": "NonSolidW", "tileId": null, "color": 0, "__tileSrcRect": null },
+			{ "id": "ReverseW", "tileId": null, "color": 0, "__tileSrcRect": null },
+			{ "id": "SlowW", "tileId": null, "color": 0, "__tileSrcRect": null },
+			{ "id": "SmallW", "tileId": null, "color": 0, "__tileSrcRect": null },
+			{ "id": "WalkW", "tileId": null, "color": 0, "__tileSrcRect": null }
+		], "iconTilesetUid": null, "externalRelPath": "../../source/game/GameTypes.hx", "externalFileChecksum": "2b4cf74bfb12e03d4452dad42c97a553" }
 	], "levelFields": [] },
 	"levels": [
 		{
@@ -565,6 +621,26 @@
 							"defUid": 14,
 							"px": [360,264],
 							"fieldInstances": []
+						},
+						{
+							"__identifier": "Word",
+							"__grid": [2,2],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 16,
+							"height": 16,
+							"defUid": 21,
+							"px": [48,48],
+							"fieldInstances": [{
+								"__identifier": "WordType",
+								"__value": "WalkW",
+								"__type": "ExternEnum.WordType",
+								"defUid": 22,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["WalkW"]
+								}]
+							}]
 						}
 					]
 				},

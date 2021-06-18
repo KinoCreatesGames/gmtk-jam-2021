@@ -1,5 +1,11 @@
 package game.states;
 
+import game.objects.Slow;
+import game.objects.Reverse;
+import game.objects.Jump;
+import game.objects.Small;
+import game.objects.NonSolid;
+import game.objects.Fast;
 import game.hazard.DeathArea;
 import flixel.addons.editors.tiled.TiledTileLayer;
 import game.hazard.MovingPlatform;
@@ -62,6 +68,7 @@ class PlayState extends BaseTileState {
 		// map.getLayer()
 		createLevelMap(cast this.map.getLayer('Level'));
 		createEntities();
+		createWords();
 		applyModifiers();
 	}
 
@@ -105,6 +112,38 @@ class PlayState extends BaseTileState {
 						24, true);
 					doorGrp.add(goal);
 			}
+		});
+	}
+
+	/**
+	 * Creates words based off the word layer in LDTk.
+	 */
+	function createWords() {
+		var wordLayer:TiledObjectLayer = cast map.getLayer('Words');
+		wordLayer.objects.iter((word) -> {
+			// Go by entity type
+			var wordType = WordType.createByName(word.properties.get('WordType'));
+			var word:Word = switch (wordType) {
+				case WalkW:
+					new Walk(word.x, word.y);
+				case FastW:
+					new Fast(word.x, word.y);
+				case JumpW:
+					new Jump(word.x, word.y);
+				case NonSolidW:
+					new NonSolid(word.x, word.y);
+				case ReverseW:
+					new Reverse(word.x, word.y);
+				case SlowW:
+					new Slow(word.x, word.y);
+				case SmallW:
+					new Small(word.x, word.y);
+				case LargeW:
+					new Large(word.x, word.y);
+				case _:
+					null; // Do nothing
+			}
+			wordGrp.add(word);
 		});
 	}
 
