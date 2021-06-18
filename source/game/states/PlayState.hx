@@ -7,13 +7,10 @@ import game.objects.Small;
 import game.objects.NonSolid;
 import game.objects.Fast;
 import game.hazard.DeathArea;
-import flixel.addons.editors.tiled.TiledTileLayer;
 import game.hazard.MovingPlatform;
 import game.objects.Walk;
-import flixel.addons.editors.tiled.TiledObjectLayer;
 import game.objects.Word;
 import game.objects.Large;
-import flixel.text.FlxText;
 import flixel.FlxState;
 
 enum abstract EntityNames(String) from String to String {
@@ -24,7 +21,7 @@ enum abstract EntityNames(String) from String to String {
 	var DEATH = 'DeathArea';
 }
 
-class PlayState extends BaseTileState {
+class PlayState extends BaseLDTkState {
 	public var wordGrp:FlxTypedGroup<Word>;
 	public var carriedWord:Word;
 	public var grabSound:FlxSound;
@@ -66,7 +63,7 @@ class PlayState extends BaseTileState {
 
 	override public function createLevelInformation() {
 		// map.getLayer()
-		createLevelMap(cast this.map.getLayer('Level'));
+		createLevelMap();
 		createEntities();
 		createWords();
 		applyModifiers();
@@ -78,40 +75,38 @@ class PlayState extends BaseTileState {
 	 * Spawns Entities into the game.
 	 */
 	function createEntities() {
-		var entityLayer:TiledObjectLayer = cast map.getLayer('Entities');
-		entityLayer.objects.iter((entity) -> {
-			switch (entity.name) {
-				case ENEMY:
-					var enemy = null;
-					entityGrp.add(enemy);
-				case PLAYER:
-					player = new Player(entity.x, entity.y,
-						DepotData.Actors_Sprocket);
-					entityGrp.add(player);
-				case MPLATFORM:
-					var path = [];
-					for (name => val in entity.properties.keys) {
-						if (name.contains('Path')) {
-							var tileWidth = cast map.getTileSet(BaseTileState.TILESET_NAME)
-								.tileWidth;
+		// var entityLayer = lvl.l_Entities.
+		// Player
+		lvl.l_Entities.all_Player.iter((pl) -> {
+			player = new Player(pl.pixelX, pl.pixelY,
+				DepotData.Actors_Sprocket);
+			entityGrp.add(player);
+		});
+		// Enemy - None Currently.
 
-							var xy = val.split(',')
-								.map((el) -> Std.parseInt(el) * tileWidth);
-							path.push(new FlxPoint(xy[0], xy[1]));
-						}
-					}
-					var mPlatform = new MovingPlatform(entity.x, entity.y,
-						path);
-					hazardGrp.add(mPlatform);
-				case DEATH:
-					var deathSprite = new DeathArea(entity.x, entity.y);
-					deathGrp.add(deathSprite);
-				case GOAL:
-					goal = new FlxSprite(entity.x, entity.y);
-					goal.loadGraphic(AssetPaths.door_sprocket__png, false, 24,
-						24, true);
-					doorGrp.add(goal);
-			}
+		// Moving Platform
+		lvl.l_Entities.all_MovingPlatform.iter((mPl) -> {
+			var tileSize = lvl.l_Level.gridSize;
+			var path = mPl.f_Path.map((point) ->
+				new FlxPoint(point.cx * tileSize, point.cy * tileSize));
+			var mPlatform = new MovingPlatform(mPl.pixelX, mPl.pixelX, path);
+			hazardGrp.add(mPlatform);
+		});
+
+		// Hazard
+
+		// Death
+		lvl.l_Entities.all_DeathArea.iter((deathArea) -> {
+			var deathSprite = new DeathArea(deathArea.pixelX, deathArea.pixelY);
+			deathGrp.add(deathSprite);
+		});
+
+		// Goal
+		lvl.l_Entities.all_Goal.iter((goal) -> {
+			this.goal = new FlxSprite(goal.pixelX, goal.pixelY);
+			this.goal.loadGraphic(AssetPaths.door_sprocket__png, false, 24,
+				24, true);
+			doorGrp.add(this.goal);
 		});
 	}
 
@@ -119,27 +114,26 @@ class PlayState extends BaseTileState {
 	 * Creates words based off the word layer in LDTk.
 	 */
 	function createWords() {
-		var wordLayer:TiledObjectLayer = cast map.getLayer('Words');
-		wordLayer.objects.iter((word) -> {
+		lvl.l_Entities.all_Word.iter((word) -> {
 			// Go by entity type
-			var wordType = WordType.createByName(word.properties.get('WordType'));
+			var wordType = word.f_WordType;
 			var word:Word = switch (wordType) {
 				case WalkW:
-					new Walk(word.x, word.y);
+					new Walk(word.pixelX, word.pixelY);
 				case FastW:
-					new Fast(word.x, word.y);
+					new Fast(word.pixelX, word.pixelY);
 				case JumpW:
-					new Jump(word.x, word.y);
+					new Jump(word.pixelX, word.pixelY);
 				case NonSolidW:
-					new NonSolid(word.x, word.y);
+					new NonSolid(word.pixelY, word.pixelY);
 				case ReverseW:
-					new Reverse(word.x, word.y);
+					new Reverse(word.pixelX, word.pixelY);
 				case SlowW:
-					new Slow(word.x, word.y);
+					new Slow(word.pixelX, word.pixelY);
 				case SmallW:
-					new Small(word.x, word.y);
+					new Small(word.pixelX, word.pixelY);
 				case LargeW:
-					new Large(word.x, word.y);
+					new Large(word.pixelX, word.pixelY);
 				case _:
 					null; // Do nothing
 			}
