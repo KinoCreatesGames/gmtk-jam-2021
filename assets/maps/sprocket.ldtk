@@ -9,7 +9,7 @@
 		"url": "https://ldtk.io"
 	},
 	"jsonVersion": "0.9.1",
-	"nextUid": 23,
+	"nextUid": 24,
 	"worldLayout": "Free",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
@@ -30,6 +30,25 @@
 	"levelNamePattern": "Level_%idx",
 	"flags": [],
 	"defs": { "layers": [
+		{
+			"__type": "Entities",
+			"identifier": "Words",
+			"type": "Entities",
+			"uid": 23,
+			"gridSize": 24,
+			"displayOpacity": 1,
+			"pxOffsetX": 0,
+			"pxOffsetY": 0,
+			"requiredTags": [],
+			"excludedTags": [],
+			"intGridValues": [{ "value": 1, "identifier": null, "color": "#000000" }],
+			"autoTilesetDefUid": null,
+			"autoRuleGroups": [],
+			"autoSourceLayerDefUid": null,
+			"tilesetDefUid": null,
+			"tilePivotX": 0,
+			"tilePivotY": 0
+		},
 		{
 			"__type": "Entities",
 			"identifier": "Entities",
@@ -357,6 +376,52 @@
 			"fieldInstances": [],
 			"layerInstances": [
 				{
+					"__identifier": "Words",
+					"__type": "Entities",
+					"__cWid": 20,
+					"__cHei": 12,
+					"__gridSize": 24,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"levelId": 0,
+					"layerDefUid": 23,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"visible": true,
+					"optionalRules": [],
+					"intGrid": [],
+					"intGridCsv": [],
+					"autoLayerTiles": [],
+					"seed": 3509555,
+					"overrideTilesetUid": null,
+					"gridTiles": [],
+					"entityInstances": [
+						{
+							"__identifier": "Word",
+							"__grid": [1,2],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 16,
+							"height": 16,
+							"defUid": 21,
+							"px": [24,48],
+							"fieldInstances": [{
+								"__identifier": "WordType",
+								"__value": "WalkW",
+								"__type": "ExternEnum.WordType",
+								"defUid": 22,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["WalkW"]
+								}]
+							}]
+						}
+					]
+				},
+				{
 					"__identifier": "Entities",
 					"__type": "Entities",
 					"__cWid": 20,
@@ -621,26 +686,6 @@
 							"defUid": 14,
 							"px": [360,264],
 							"fieldInstances": []
-						},
-						{
-							"__identifier": "Word",
-							"__grid": [2,2],
-							"__pivot": [0,0],
-							"__tile": null,
-							"width": 16,
-							"height": 16,
-							"defUid": 21,
-							"px": [48,48],
-							"fieldInstances": [{
-								"__identifier": "WordType",
-								"__value": "WalkW",
-								"__type": "ExternEnum.WordType",
-								"defUid": 22,
-								"realEditorValues": [{
-									"id": "V_String",
-									"params": ["WalkW"]
-								}]
-							}]
 						}
 					]
 				},
@@ -957,6 +1002,31 @@
 			"externalRelPath": null,
 			"fieldInstances": [],
 			"layerInstances": [
+				{
+					"__identifier": "Words",
+					"__type": "Entities",
+					"__cWid": 20,
+					"__cHei": 12,
+					"__gridSize": 24,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"levelId": 11,
+					"layerDefUid": 23,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"visible": true,
+					"optionalRules": [],
+					"intGrid": [],
+					"intGridCsv": [],
+					"autoLayerTiles": [],
+					"seed": 4304270,
+					"overrideTilesetUid": null,
+					"gridTiles": [],
+					"entityInstances": []
+				},
 				{
 					"__identifier": "Entities",
 					"__type": "Entities",
@@ -1399,6 +1469,31 @@
 			"fieldInstances": [],
 			"layerInstances": [
 				{
+					"__identifier": "Words",
+					"__type": "Entities",
+					"__cWid": 20,
+					"__cHei": 12,
+					"__gridSize": 24,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"levelId": 15,
+					"layerDefUid": 23,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"visible": true,
+					"optionalRules": [],
+					"intGrid": [],
+					"intGridCsv": [],
+					"autoLayerTiles": [],
+					"seed": 1796679,
+					"overrideTilesetUid": null,
+					"gridTiles": [],
+					"entityInstances": []
+				},
+				{
 					"__identifier": "Entities",
 					"__type": "Entities",
 					"__cWid": 20,
@@ -1816,6 +1911,31 @@
 			"externalRelPath": null,
 			"fieldInstances": [],
 			"layerInstances": [
+				{
+					"__identifier": "Words",
+					"__type": "Entities",
+					"__cWid": 20,
+					"__cHei": 12,
+					"__gridSize": 24,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"levelId": 16,
+					"layerDefUid": 23,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"visible": true,
+					"optionalRules": [],
+					"intGrid": [],
+					"intGridCsv": [],
+					"autoLayerTiles": [],
+					"seed": 6088600,
+					"overrideTilesetUid": null,
+					"gridTiles": [],
+					"entityInstances": []
+				},
 				{
 					"__identifier": "Entities",
 					"__type": "Entities",
@@ -2309,6 +2429,31 @@
 			"externalRelPath": null,
 			"fieldInstances": [],
 			"layerInstances": [
+				{
+					"__identifier": "Words",
+					"__type": "Entities",
+					"__cWid": 20,
+					"__cHei": 12,
+					"__gridSize": 24,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"levelId": 18,
+					"layerDefUid": 23,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"visible": true,
+					"optionalRules": [],
+					"intGrid": [],
+					"intGridCsv": [],
+					"autoLayerTiles": [],
+					"seed": 6541063,
+					"overrideTilesetUid": null,
+					"gridTiles": [],
+					"entityInstances": []
+				},
 				{
 					"__identifier": "Entities",
 					"__type": "Entities",
@@ -2918,6 +3063,31 @@
 			"externalRelPath": null,
 			"fieldInstances": [],
 			"layerInstances": [
+				{
+					"__identifier": "Words",
+					"__type": "Entities",
+					"__cWid": 20,
+					"__cHei": 12,
+					"__gridSize": 24,
+					"__opacity": 1,
+					"__pxTotalOffsetX": 0,
+					"__pxTotalOffsetY": 0,
+					"__tilesetDefUid": null,
+					"__tilesetRelPath": null,
+					"levelId": 19,
+					"layerDefUid": 23,
+					"pxOffsetX": 0,
+					"pxOffsetY": 0,
+					"visible": true,
+					"optionalRules": [],
+					"intGrid": [],
+					"intGridCsv": [],
+					"autoLayerTiles": [],
+					"seed": 8093504,
+					"overrideTilesetUid": null,
+					"gridTiles": [],
+					"entityInstances": []
+				},
 				{
 					"__identifier": "Entities",
 					"__type": "Entities",
