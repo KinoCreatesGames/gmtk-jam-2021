@@ -89,7 +89,7 @@ class PlayState extends BaseLDTkState {
 			var tileSize = lvl.l_Level.gridSize;
 			var path = mPl.f_Path.map((point) ->
 				new FlxPoint(point.cx * tileSize, point.cy * tileSize));
-			var mPlatform = new MovingPlatform(mPl.pixelX, mPl.pixelX, path);
+			var mPlatform = new MovingPlatform(mPl.pixelX, mPl.pixelY, path);
 			hazardGrp.add(mPlatform);
 		});
 
