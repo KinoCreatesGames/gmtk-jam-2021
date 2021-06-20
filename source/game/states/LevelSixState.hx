@@ -17,6 +17,6 @@ class LevelSixState extends PlayState {
 	}
 
 	override public function nextLevel() {
-		return new ThankYouState();
+		return new LevelSevenState();
 	}
 }
